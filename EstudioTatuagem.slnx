@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EstudioTatuagem.Api/EstudioTatuagem.Api.csproj" />
+  <Project Path="EstudioTatuagem.Testes/EstudioTatuagem.Testes.csproj" />
+</Solution>
