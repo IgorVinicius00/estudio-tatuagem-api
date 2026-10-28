@@ -133,3 +133,4 @@ C:\Users\20251stads0030\Documents\Estudio_tatuagem\estudio-tatuagem-api\EstudioT
 C:\Users\20251stads0030\Documents\Estudio_tatuagem\estudio-tatuagem-api\EstudioTatuagem.Api\obj\Debug\net10.0\EstudioTatuagem.Api.pdb
 C:\Users\20251stads0030\Documents\Estudio_tatuagem\estudio-tatuagem-api\EstudioTatuagem.Api\obj\Debug\net10.0\EstudioTatuagem.Api.genruntimeconfig.cache
 C:\Users\20251stads0030\Documents\Estudio_tatuagem\estudio-tatuagem-api\EstudioTatuagem.Api\obj\Debug\net10.0\ref\EstudioTatuagem.Api.dll
+C:\Users\20251stads0030\Documents\Estudio_tatuagem\estudio-tatuagem-api\EstudioTatuagem.Api\obj\Debug\net10.0\EstudioTatuagem.Api.sourcelink.json
