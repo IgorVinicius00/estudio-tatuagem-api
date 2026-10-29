@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj": {}
+    "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj": {
+    "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj",
+        "projectUniqueName": "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj",
         "projectName": "EstudioTatuagem.Api",
-        "projectPath": "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj",
-        "packagesPath": "C:\\Users\\20251stads0030\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Api\\obj\\",
+        "projectPath": "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj",
+        "packagesPath": "C:\\Users\\igorb\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\20251stads0030\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\igorb\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -24,6 +24,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -38,10 +39,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "BCrypt.Net-Next": {
@@ -90,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\20251stads0030\\Downloads\\dotnet-sdk-10.0.114-win-x64\\sdk\\10.0.114/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.403/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -508,17 +510,17 @@
         }
       }
     },
-    "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj": {
+    "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj",
+        "projectUniqueName": "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj",
         "projectName": "EstudioTatuagem.Testes",
-        "projectPath": "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj",
-        "packagesPath": "C:\\Users\\20251stads0030\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\obj\\",
+        "projectPath": "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\EstudioTatuagem.Testes.csproj",
+        "packagesPath": "C:\\Users\\igorb\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Testes\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\20251stads0030\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\igorb\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -528,10 +530,11 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj": {
-                "projectPath": "C:\\Users\\20251stads0030\\Documents\\Estudio_tatuagem\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj"
+              "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj": {
+                "projectPath": "C:\\Users\\igorb\\Documents\\estudio-tatuagem-api\\EstudioTatuagem.Api\\EstudioTatuagem.Api.csproj"
               }
             }
           }
@@ -546,10 +549,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Sqlite": {
@@ -591,7 +595,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\20251stads0030\\Downloads\\dotnet-sdk-10.0.114-win-x64\\sdk\\10.0.114/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.403/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
