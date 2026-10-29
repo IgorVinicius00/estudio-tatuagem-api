@@ -1,82 +1,116 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using EstudioTatuagem.Api.Dados;
 using EstudioTatuagem.Api.Modelos;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
-// Configuração do DbContext com Npgsql / PostgreSQL
-var connectionString = builder.Configuration.GetConnectionString("Padrao");
-if (string.IsNullOrWhiteSpace(connectionString))
-{
-    throw new InvalidOperationException("Configure a variável de ambiente ConnectionStrings__Padrao.");
-}
+// Configuração de Banco de Dados
+var connectionString = builder.Configuration.GetConnectionString("Padrao") 
+    ?? Environment.GetEnvironmentVariable("ConnectionStrings__Padrao") 
+    ?? throw new InvalidOperationException("Configure a variável de ambiente ConnectionStrings__Padrao.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// Health checks
-builder.Services.AddHealthChecks()
-    .AddDbContextCheck<AppDbContext>();
+// Configuração de Autenticação JWT
+var segredoJwt = builder.Configuration["Jwt:Segredo"] 
+    ?? Environment.GetEnvironmentVariable("Jwt__Segredo") 
+    ?? "SegredoPadraoParaDesenvolvimento123456789";
 
-// Swashbuckle / Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+var key = Encoding.ASCII.GetBytes(segredoJwt);
+
+builder.Services.AddAuthentication(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        Title = "Estúdio de Tatuagem API",
-        Version = "v1",
-        Description = "Projeto escolar — empresa fictícia"
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+// Configuração do Swagger com suporte a JWT Header
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Estúdio de Tatuagem API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Insira o token JWT neste formato: Bearer {seu_token}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 
+builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+
 var app = builder.Build();
 
-// Migrations automáticas e Seed de Dados na inicialização
+// Executa Migrations e Seed automaticamente no startup
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.MigrateAsync();
 
-    // Seed de Utilizadores
-    if (!await db.Usuarios.AnyAsync())
+    var adminSenha = builder.Configuration["Seed:AdminSenha"] 
+        ?? Environment.GetEnvironmentVariable("Seed__AdminSenha") 
+        ?? "Admin@2026";
+
+    // Seed de Admin
+    if (!await db.Usuarios.AnyAsync(u => u.Email == "admin@estudio.com"))
     {
-        var adminSenha = Environment.GetEnvironmentVariable("Seed__AdminSenha") ?? "Admin@2026";
         var adminHash = BCrypt.Net.BCrypt.HashPassword(adminSenha);
-        var clienteHash = BCrypt.Net.BCrypt.HashPassword("Cliente@2026");
-
-        var admin = new Usuario("Admin do Estúdio", "admin@estudio.com", adminHash, "admin");
-        var cliente1 = new Usuario("Lucas Silva", "lucas@exemplo.com", clienteHash, "cliente");
-        var cliente2 = new Usuario("Mariana Costa", "mariana@exemplo.com", clienteHash, "cliente");
-
-        db.Usuarios.AddRange(admin, cliente1, cliente2);
+        db.Usuarios.Add(new Usuario("Administrador", "admin@estudio.com", adminHash, "admin"));
         await db.SaveChangesAsync();
     }
 
-    // Seed de Tatuadores (Pelo menos 8 registos realistas)
+    // Seed de Tatuadores
     if (!await db.Tatuadores.AnyAsync())
     {
-        var tatuadores = new List<Tatuador>
-        {
-            new("Gabriel Santos", "Blackwork", 250m),
-            new("Camila Rocha", "Realismo", 350m),
-            new("Rodrigo Lima", "Old School", 220m),
-            new("Beatriz Melo", "Aquarela", 280m),
-            new("Felipe Xavier", "Neotraditional", 300m),
-            new("Juliana Paes", "Fine Line", 260m),
-            new("Thiago Martins", "Oriental", 320m),
-            new("Amanda Prado", "Geométrico", 240m)
-        };
-
-        db.Tatuadores.AddRange(tatuadores);
+        db.Tatuadores.AddRange(
+            new Tatuador("Carlos 'Oeste' Silva", "Realismo e Preto e Cinza", 250),
+            new Tatuador("Mariana Costa", "Aquarela e Fine Line", 200),
+            new Tatuador("Lucas 'Kage' Tanaka", "Oriental e Irezumi", 280),
+            new Tatuador("Beatriz Rocha", "Old School e Neotradicional", 220),
+            new Tatuador("Rafael 'Gordo' Mendonça", "Tribal e Blackwork", 190),
+            new Tatuador("Camila Alcantara", "Geométrico e Pontilhismo", 230),
+            new Tatuador("Rodrigo 'Xis' Lima", "Lettering e Chicano", 180),
+            new Tatuador("Fernanda 'Nanda' Souza", "Minimalista e Micro-realismo", 210)
+        );
         await db.SaveChangesAsync();
     }
 }
 
-// Middlewares
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -89,6 +123,7 @@ app.MapGet("/api/versao", () => Results.Ok(new
     ambiente = app.Environment.EnvironmentName
 }));
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

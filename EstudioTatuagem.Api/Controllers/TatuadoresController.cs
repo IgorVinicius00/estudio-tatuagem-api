@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EstudioTatuagem.Api.Dados;
@@ -43,6 +44,7 @@ public class TatuadoresController : ControllerBase
 
     // POST: api/tatuadores
     [HttpPost]
+    [Authorize(Roles = "admin")]
     public async Task<ActionResult<TatuadorRespostaDto>> Criar([FromBody] CriarTatuadorDto dto)
     {
         try
@@ -62,6 +64,7 @@ public class TatuadoresController : ControllerBase
 
     // PUT: api/tatuadores/5
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> Atualizar(int id, [FromBody] AtualizarTatuadorDto dto)
     {
         var tatuador = await _context.Tatuadores.FindAsync(id);
@@ -83,6 +86,7 @@ public class TatuadoresController : ControllerBase
 
     // DELETE: api/tatuadores/5 (Desativação lógica)
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> Desativar(int id)
     {
         var tatuador = await _context.Tatuadores.FindAsync(id);
