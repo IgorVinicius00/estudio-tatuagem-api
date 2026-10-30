@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EstudioTatuagem.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42ae1513418c1fb275c4fb9d29f832cbf4d4a7d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f945e73182f6924bb8cc14b9e15b8ace4537f4a8")]
 [assembly: System.Reflection.AssemblyProductAttribute("EstudioTatuagem.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EstudioTatuagem.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
