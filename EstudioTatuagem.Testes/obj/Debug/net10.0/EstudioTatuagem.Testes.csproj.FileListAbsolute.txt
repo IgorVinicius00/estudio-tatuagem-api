@@ -319,3 +319,4 @@ C:\Users\igorb\Documents\estudio-tatuagem-api\EstudioTatuagem.Testes\obj\Debug\n
 C:\Users\igorb\Documents\estudio-tatuagem-api\EstudioTatuagem.Testes\obj\Debug\net10.0\EstudioTatuagem.Testes.pdb
 C:\Users\igorb\Documents\estudio-tatuagem-api\EstudioTatuagem.Testes\obj\Debug\net10.0\EstudioTatuagem.Testes.genruntimeconfig.cache
 C:\Users\igorb\Documents\estudio-tatuagem-api\EstudioTatuagem.Testes\obj\Debug\net10.0\ref\EstudioTatuagem.Testes.dll
+C:\Users\igorb\Documents\estudio-tatuagem-api\EstudioTatuagem.Testes\bin\Debug\net10.0\EstudioTatuagem.Api.staticwebassets.runtime.json

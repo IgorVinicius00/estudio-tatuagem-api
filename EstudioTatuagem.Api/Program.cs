@@ -106,10 +106,14 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Swagger na rota /swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/", () => Results.Redirect("/swagger"));
+// Serve o wwwroot/index.html na rota raiz (/)
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapHealthChecks("/health");
 
 app.MapGet("/api/versao", () => Results.Ok(new

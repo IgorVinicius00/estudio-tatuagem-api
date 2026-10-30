@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estúdio de Tatuagem - Teste da API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans p-4 md:p-8">
+
+  <div class="max-w-4xl mx-auto space-y-8">
+    
+    <!-- Cabeçalho -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-6 gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-amber-500">🖤 Estúdio de Tatuagem</h1>
+        <p class="text-slate-400 text-sm">Interface de Teste Integrada à API .NET 10</p>
+      </div>
+
+      <!-- Configuração da URL da API -->
+      <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+        <span class="text-slate-400 font-semibold">API Base:</span>
+        <input id="baseUrl" type="text" value="https://estudio-tatuagem-api-d2zy.onrender.com" 
+               class="bg-slate-900 text-slate-200 px-2 py-1 rounded border border-slate-700 w-64 focus:outline-none focus:border-amber-500">
+      </div>
+    </header>
+
+    <!-- Feedback / Notificações -->
+    <div id="mensagem" class="hidden p-4 rounded-lg text-sm font-medium"></div>
+
+    <!-- SEÇÃO 1: Autenticação -->
+    <section id="secLogin" class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
+      <h2 class="text-xl font-semibold mb-4 text-amber-400 flex items-center gap-2">
+        🔑 1. Autenticação (Login)
+      </h2>
+      <form id="formLogin" onsubmit="fazerLogin(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">E-mail</label>
+          <input id="loginEmail" type="email" value="admin@estudio.com" required
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Senha</label>
+          <input id="loginSenha" type="password" value="Admin@2026" required
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+        </div>
+        <div class="flex items-end">
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold p-2 rounded-lg text-sm transition">
+            Entrar
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- SEÇÃO 2: Painel do Usuário Logado -->
+    <section id="secUsuarioLogado" class="hidden bg-slate-800 p-4 rounded-xl border border-slate-700 flex justify-between items-center">
+      <div>
+        <span class="text-xs text-slate-400">Usuário Autenticado:</span>
+        <p id="userStatus" class="font-bold text-amber-400"></p>
+      </div>
+      <button onclick="fazerLogout()" class="text-xs bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-lg hover:bg-red-500/30">
+        Sair / Trocar Conta
+      </button>
+    </section>
+
+    <!-- SEÇÃO 3: Agendamento -->
+    <section id="secAgendamento" class="hidden bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl space-y-4">
+      <h2 class="text-xl font-semibold text-amber-400 flex items-center gap-2">
+        📅 2. Agendar Nova Sessão
+      </h2>
+      <form id="formAgendamento" onsubmit="agendarSessao(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="col-span-2 md:col-span-1">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Tatuador</label>
+          <select id="selectTatuador" required
+                  class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+            <option value="">Carregando tatuadores...</option>
+          </select>
+        </div>
+
+        <div class="col-span-2 md:col-span-1">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Descrição do Desenho / Tatuagem</label>
+          <input id="descricaoTatuagem" type="text" placeholder="Ex: Dragão oriental no antebraço" required
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Início da Sessão</label>
+          <input id="dataHoraInicio" type="datetime-local" required
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Término da Sessão</label>
+          <input id="dataHoraFim" type="datetime-local" required
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div class="col-span-2">
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold p-2.5 rounded-lg text-sm transition">
+            Confirmar Agendamento
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- SEÇÃO 4: Minhas Sessões -->
+    <section id="secSessoes" class="hidden bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl space-y-4">
+      <div class="flex justify-between items-center">
+        <h2 class="text-xl font-semibold text-amber-400 flex items-center gap-2">
+          📋 3. Sessões Agendadas
+        </h2>
+        <button onclick="carregarSessoes()" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-lg text-slate-200">
+          Atualizar Lista
+        </button>
+      </div>
+
+      <div id="listaSessoes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <p class="text-slate-400 text-sm col-span-2">Nenhuma sessão carregada.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    let tokenJWT = localStorage.getItem('token_estudio') || '';
+    let usuarioAtual = JSON.parse(localStorage.getItem('usuario_estudio') || 'null');
+
+    // Inicialização da página
+    window.onload = () => {
+      definirDatasPadrao();
+      if (tokenJWT && usuarioAtual) {
+        exibirStateLogado();
+      }
+    };
+
+    function getBaseUrl() {
+      return document.getElementById('baseUrl').value.replace(/\/$/, '');
+    }
+
+    function exibirMensagem(texto, erro = false) {
+      const msgDiv = document.getElementById('mensagem');
+      msgDiv.className = `p-4 rounded-lg text-sm font-medium ${erro ? 'bg-red-500/20 text-red-300 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}`;
+      msgDiv.innerText = texto;
+      msgDiv.classList.remove('hidden');
+      setTimeout(() => msgDiv.classList.add('hidden'), 5000);
+    }
+
+    function definirDatasPadrao() {
+      const agora = new Date();
+      agora.setHours(agora.getHours() + 1, 0, 0, 0); // próxima hora cheia
+      const fim = new Date(agora);
+      fim.setHours(fim.getHours() + 2); // 2 horas de duração por padrão
+
+      document.getElementById('dataHoraInicio').value = agora.toISOString().slice(0, 16);
+      document.getElementById('dataHoraFim').value = fim.toISOString().slice(0, 16);
+    }
+
+    // LOGIN
+    async function fazerLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const senha = document.getElementById('loginSenha').value;
+
+      try {
+        const res = await fetch(`${getBaseUrl()}/api/autenticacao/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, senha })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.mensagem || 'Falha ao autenticar.');
+
+        tokenJWT = data.token;
+        usuarioAtual = { nome: data.nome, email: data.email, papel: data.papel };
+        
+        localStorage.setItem('token_estudio', tokenJWT);
+        localStorage.setItem('usuario_estudio', JSON.stringify(usuarioAtual));
+
+        exibirMensagem(`Bem-vindo, ${data.nome}! Login realizado com sucesso.`);
+        exibirStateLogado();
+      } catch (err) {
+        exibirMensagem(err.message, true);
+      }
+    }
+
+    function exibirStateLogado() {
+      document.getElementById('secLogin').classList.add('hidden');
+      document.getElementById('secUsuarioLogado').classList.remove('hidden');
+      document.getElementById('secAgendamento').classList.remove('hidden');
+      document.getElementById('secSessoes').classList.remove('hidden');
+
+      document.getElementById('userStatus').innerText = `${usuarioAtual.nome} (${usuarioAtual.papel.toUpperCase()}) - ${usuarioAtual.email}`;
+
+      carregarTatuadores();
+      carregarSessoes();
+    }
+
+    function fazerLogout() {
+      tokenJWT = '';
+      usuarioAtual = null;
+      localStorage.removeItem('token_estudio');
+      localStorage.removeItem('usuario_estudio');
+
+      document.getElementById('secLogin').classList.remove('hidden');
+      document.getElementById('secUsuarioLogado').classList.add('hidden');
+      document.getElementById('secAgendamento').classList.add('hidden');
+      document.getElementById('secSessoes').classList.add('hidden');
+      exibirMensagem('Sessão encerrada.');
+    }
+
+    // CARREGAR TATUADORES
+    async function carregarTatuadores() {
+      try {
+        const res = await fetch(`${getBaseUrl()}/api/tatuadores`);
+        const tatuadores = await res.json();
+
+        const select = document.getElementById('selectTatuador');
+        select.innerHTML = '<option value="">Selecione um tatuador</option>';
+
+        tatuadores.forEach(t => {
+          select.innerHTML += `<option value="${t.id}">${t.nome} - ${t.especialidade} (R$ ${t.valorHora}/h)</option>`;
+        });
+      } catch (err) {
+        exibirMensagem('Erro ao carregar lista de tatuadores.', true);
+      }
+    }
+
+    // AGENDAR SESSÃO
+    async function agendarSessao(e) {
+      e.preventDefault();
+
+      const dto = {
+        tatuadorId: parseInt(document.getElementById('selectTatuador').value),
+        descricaoTatuagem: document.getElementById('descricaoTatuagem').value,
+        dataHoraInicio: new Date(document.getElementById('dataHoraInicio').value).toISOString(),
+        dataHoraFim: new Date(document.getElementById('dataHoraFim').value).toISOString()
+      };
+
+      try {
+        const res = await fetch(`${getBaseUrl()}/api/sessoes`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tokenJWT}`
+          },
+          body: JSON.stringify(dto)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.mensagem || 'Erro ao agendar sessão.');
+
+        exibirMensagem('Sessão agendada com sucesso!');
+        document.getElementById('descricaoTatuagem').value = '';
+        carregarSessoes();
+      } catch (err) {
+        exibirMensagem(err.message, true);
+      }
+    }
+
+    // CARREGAR SESSÕES
+    async function carregarSessoes() {
+      const container = document.getElementById('listaSessoes');
+      container.innerHTML = '<p class="text-slate-400 text-sm col-span-2">Carregando...</p>';
+
+      try {
+        const res = await fetch(`${getBaseUrl()}/api/sessoes`, {
+          headers: { 'Authorization': `Bearer ${tokenJWT}` }
+        });
+
+        if (!res.ok) throw new Error('Não foi possível buscar as sessões.');
+
+        const sessoes = await res.json();
+
+        if (sessoes.length === 0) {
+          container.innerHTML = '<p class="text-slate-400 text-sm col-span-2">Nenhuma sessão encontrada para este usuário.</p>';
+          return;
+        }
+
+        container.innerHTML = sessoes.map(s => `
+          <div class="bg-slate-900 border border-slate-700 p-4 rounded-lg space-y-2">
+            <div class="flex justify-between items-start">
+              <span class="font-bold text-amber-400 text-sm">Sessão #${s.id}</span>
+              <span class="text-xs bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded">
+                ${s.nomeTatuador}
+              </span>
+            </div>
+            <p class="text-xs text-slate-300 font-medium">${s.descricaoTatuagem}</p>
+            <div class="text-xs text-slate-400 space-y-0.5 border-t border-slate-800 pt-2">
+              <p>👤 Cliente: ${s.nomeCliente}</p>
+              <p>🕒 Início: ${new Date(s.dataHoraInicio).toLocaleString('pt-BR')}</p>
+              <p>⌛ Fim: ${new Date(s.dataHoraFim).toLocaleString('pt-BR')}</p>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (err) {
+        container.innerHTML = `<p class="text-red-400 text-sm col-span-2">${err.message}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
